@@ -49,6 +49,7 @@ Currently the columns of the db are :
 * lang : the language for that word. That allow to acess the right section of the wiktionary page. For example there can be a bulgarian and a russian section for a given word in cyrillic.
 * tlang : the language of the wiktionary page
 * content : the section of the wiktionary page to be cached as per `lang`.
+* unflexed: TBD
 
 I want the tool to be a [spaced repetion learning](https://en.wikipedia.org/wiki/Spaced_repetition) one but I got side tracked by the wiktionary support. On the other hand, my tool (translations + wiktionary) will eventually provide more context than mere than SRL flashcards.
 
@@ -59,7 +60,11 @@ It is currently html only. I have not yet commited it. It shows side by side in 
 
 ## A useful ressource
 
-But I want to have right away many text translated to create a table for them and a UI to access them. I found something that I can easily exploit.
+But I want to have right away many translated texts  to create a table for them and a UI to access them. I found something that I can easily exploit.
 
 https://pastebin.com/raw/aQAnpzQr
 https://frequencylists.blogspot.com/2016/08/5000-russian-sentences-sorted-from.html
+
+## Common words
+
+The previous resource considers a word and its flexions as different. Instead, I want to eventually able to focus on instances of a word, flexed or not. In my original table, indices was probably the offset of the word in a document. Need to be rethought in the context of many documents. The said document will be the source of thruth about the calculated frequency of a given word.
