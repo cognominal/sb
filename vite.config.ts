@@ -2,6 +2,7 @@ import tailwindcss from '@tailwindcss/vite';
 import { svelteTesting } from '@testing-library/svelte/vite';
 import { sveltekit } from '@sveltejs/kit/vite';
 import { defineConfig } from 'vite';
+import { configDefaults } from 'vitest/config';
 
 export default defineConfig({
 	plugins: [tailwindcss(), sveltekit()],
@@ -28,6 +29,8 @@ export default defineConfig({
 					exclude: ['src/**/*.svelte.{test,spec}.{js,ts}']
 				}
 			}
-		]
+		],
+		include: ['tests/**/*.test.ts'], // Ensure the tests directory is included
+		...configDefaults.test
 	}
 });

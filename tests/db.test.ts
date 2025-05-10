@@ -1,0 +1,70 @@
+import { describe, it, expect, beforeAll } from 'vitest';
+import { drizzle } from 'drizzle-orm/libsql';
+import { createClient } from '@libsql/client';
+import * as schema from '../src/lib/server/db/schema';
+import { wordsTable } from '../src/lib/server/db/schema';
+import { and, eq } from 'drizzle-orm/expressions';
+
+// .env is git ignored so don't use it for tests.
+// import dotenv from 'dotenv';
+
+// Load environment variables from .env file
+// dotenv.config();
+
+// const client = createClient({ url: process.env.DB_FILE_NAME! });
+
+
+const client = createClient({ url: 'file:local.db' });
+const db = drizzle(client, { schema });
+
+async function initializeDatabase() {
+    // Check if the `words` table exists using raw SQL
+    const tableExists = await db.all<{ count: number }>(
+        `SELECT COUNT(*) as count FROM sqlite_master WHERE type='table' AND name='words'`
+    );
+
+    // Create the `words` table if it doesn't exist
+    if (tableExists[0].count === 0) {
+        await db.run(`
+            CREATE TABLE words (
+                word TEXT NOT NULL,
+                lang TEXT NOT NULL,
+                tlang TEXT NOT NULL,
+                content TEXT,
+                PRIMARY KEY (word, lang, tlang)
+            )
+        `);
+    }
+}
+
+beforeAll(async () => {
+    await initializeDatabase();
+    // Clear the `words` table before running tests
+    await db.run(`DELETE FROM words`);
+});
+
+describe('Database Tests', () => {
+    it('should insert and retrieve a row with content "fakecontent"', async () => {
+        // Insert a row into the wordsTable
+        await db.insert(schema.wordsTable).values({
+            word: 'fakeword',
+            lang: 'en',
+            tlang: 'en',
+            content: 'fakecontent'
+        }).run();
+
+        // Find the row using the primary keys
+        const row = await db.select().from(wordsTable)
+            .where(
+                and(
+                    eq(wordsTable.word, 'fakeword'),
+                    eq(wordsTable.lang, 'en'),
+                    eq(wordsTable.tlang, 'en')
+                )
+            )
+            .get();
+
+        // Assert the content of the row
+        expect(row?.content).toBe('fakecontent');
+    });
+});
