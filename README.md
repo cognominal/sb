@@ -1,38 +1,25 @@
-# sv
+This is a reboot of [spc-learn](https://github.com/cognominal/spc-learn) from a clean state by scaffolding using  [sv](https://www.npmjs.com/package/sv)
+ which generated the original [sv README](./README.sv.md)
 
-Everything you need to build a Svelte project, powered by [`sv`](https://github.com/sveltejs/cli).
+The name of the repo will change.
+Currently there is only a database test.
 
-## Creating a project
 
-If you're seeing this, you've probably already done this step. Congrats!
+Install with `pnpm install`
 
-```bash
-# create a new project in the current directory
-npx sv create
+Run with `pnpm run dev'
 
-# create a new project in my-app
-npx sv create my-app
-```
+Access from the browser at `http://localhost:5173/` 
 
-## Developing
+From vscode command palette "Focus on test explorer view" to run the test.
 
-Once you've created a project and installed dependencies with `npm install` (or `pnpm install` or `yarn`), start a development server:
+* NEXT: bring the UI with access to the db
+* NEXT : adapt a table for translated documents to the db and bring the UI do add translated documents
 
-```bash
-npm run dev
 
-# or start the server and open the app in a new browser tab
-npm run dev -- --open
-```
+* TBD : script my opportunist workflow. Currently it is messy but the git-pushed result is clean. No branches and no stashes, working (or not) files all over the place.  I do a commit using some of them when I got something working, I create a test  
+[worktree][https://git-scm.com/docs/git-worktree], install and test there. Rinse and repeat amending the commit, then push the main branch when the test(s) succeed.
+When things will settle, I will do feature branches.
 
-## Building
-
-To create a production version of your app:
-
-```bash
-npm run build
-```
-
-You can preview the production build with `npm run preview`.
-
-> To deploy your app, you may need to install an [adapter](https://svelte.dev/docs/kit/adapters) for your target environment.
+* TBD : run the tests from a fresh vscode using the recommanded extensions from [extensions.json](.vscode/extensions.json) 
+* TBD : the tests should not overwrite the database but act on another.
