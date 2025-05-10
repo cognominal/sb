@@ -1,0 +1,10 @@
+{
+    "recommendations": [
+        "alexcvzz.vscode-sqlite",
+        "qwtel.sqlite-viewer",
+        "ms-playwright.playwright",
+        "swellaby.vscode-rust-test-adapter",
+        "hbenl.vscode-test-explorer",
+        "vitest.explorer"
+    ]
+}
