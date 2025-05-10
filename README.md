@@ -7,7 +7,7 @@ Currently there is only a database test.
 
 Install with `pnpm install`
 
-Run with `pnpm run dev'
+Run with `pnpm run dev`
 
 Access from the browser at `http://localhost:5173/` 
 
@@ -22,4 +22,3 @@ From vscode command palette "Focus on test explorer view" to run the test.
 When things will settle, I will do feature branches.
 
 * TBD : run the tests from a fresh vscode using the recommanded extensions from [extensions.json](.vscode/extensions.json) 
-* TBD : the tests should not overwrite the database but act on another.

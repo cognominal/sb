@@ -4,6 +4,7 @@ import { createClient } from '@libsql/client';
 import * as schema from '../src/lib/server/db/schema';
 import { wordsTable } from '../src/lib/server/db/schema';
 import { and, eq } from 'drizzle-orm/expressions';
+import { initializeDatabase } from '../src/lib/server/db';
 
 // .env is git ignored so don't use it for tests.
 // import dotenv from 'dotenv';
@@ -14,34 +15,15 @@ import { and, eq } from 'drizzle-orm/expressions';
 // const client = createClient({ url: process.env.DB_FILE_NAME! });
 
 
-const client = createClient({ url: 'file:local.db' });
+const client = createClient({ url: 'file:local-test.db' });
 const db = drizzle(client, { schema });
-
-async function initializeDatabase() {
-    // Check if the `words` table exists using raw SQL
-    const tableExists = await db.all<{ count: number }>(
-        `SELECT COUNT(*) as count FROM sqlite_master WHERE type='table' AND name='words'`
-    );
-
-    // Create the `words` table if it doesn't exist
-    if (tableExists[0].count === 0) {
-        await db.run(`
-            CREATE TABLE words (
-                word TEXT NOT NULL,
-                lang TEXT NOT NULL,
-                tlang TEXT NOT NULL,
-                content TEXT,
-                PRIMARY KEY (word, lang, tlang)
-            )
-        `);
-    }
-}
 
 beforeAll(async () => {
     await initializeDatabase();
     // Clear the `words` table before running tests
     await db.run(`DELETE FROM words`);
 });
+
 
 describe('Database Tests', () => {
     it('should insert and retrieve a row with content "fakecontent"', async () => {
