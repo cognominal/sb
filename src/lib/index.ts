@@ -1,1 +1,3 @@
-// place files you want to import through the `$lib` alias in this folder.
+export { cleanProcessedHtml } from '$lib/utils.js';
+export { handleClick, handleClickRussianWord, getAndProcessDefinition } from '$lib/eventHandlers.js';
+export { PageState } from '$lib/PageState.svelte.js';

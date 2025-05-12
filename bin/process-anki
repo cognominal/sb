@@ -1,0 +1,60 @@
+#! /usr/bin/env raku
+my $input-file = 'input/anki.ru.txt';
+my $output-file = 'static/grok-processed-file.html';
+my $css-file = 'static/s.css';
+
+my $css = slurp $css-file;
+$_ = slurp $input-file;
+
+my @sentences = split /\n\n/, $_;
+say "Number of sentences: ", @sentences.elems;
+
+my $output = '';
+
+for @sentences -> $sentence {
+    $output ~= 	qq:to<END>;
+        <li class="break-words">
+    END
+
+    my ($ru, $en) = $sentence.split(/\n/);
+    my @ru = $ru.split(/\s+/);
+    my @en = $en.split(/\s+/);
+    $output ~= qq:to<END>;
+    	<strong>Russian: </strong>
+    END
+    for @ru {
+        $output ~= qq:to<END>;
+    		<span data-lang="ru" data-word="$_">$_\</span>
+        END
+    }
+    $output ~= qq:to<END>;
+    	<strong>English: </strong>
+    END
+    for @en  {
+        $output ~= qq:to<END>;
+                <span data-lang="en" data-word="$_">$_\</span>
+        END
+    }
+    $output ~= qq:to<END>;
+        </li>
+    END
+}
+
+$output = qq:to<END>;
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Interactive Words</title>
+$css
+</head>
+<body>
+<ol class="marker:text-secondary">
+$output
+    </li>    
+</ol>
+<body>
+END
+
+spurt $output-file, $output;

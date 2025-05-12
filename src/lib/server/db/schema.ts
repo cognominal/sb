@@ -10,3 +10,10 @@ export const wordsTable = sqliteTable('words', {
 }, (table) => ({
 	pk: primaryKey({ columns: [table.word, table.lang, table.tlang] }),
 }));
+
+export const exposedDocumentsTable = sqliteTable('documents', {
+	id: integer('id').primaryKey(),
+	title: text('title').notNull(),
+	// lang: text('lang').notNull(), // language of the document
+	content: text('content').notNull(), // content of the document
+})
