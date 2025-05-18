@@ -57,6 +57,8 @@
 		"@skeletonlabs/skeleton-svelte": "^1.2.1",
 		"better-sqlite3": "^11.10.0",
 		"dotenv": "^16.5.0",
+		"drizzle-kit": "^0.31.1",
+		"drizzle-orm": "^0.43.1",
 		"lucide-svelte": "^0.509.0",
 		"marked": "^15.0.11",
 		"tippy.js": "^6.3.7"
