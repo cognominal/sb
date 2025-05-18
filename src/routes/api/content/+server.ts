@@ -2,8 +2,7 @@ import { json } from '@sveltejs/kit';
 import type { RequestHandler } from './$types';
 import { db } from '$lib/server'; // Assuming a database connection is exported here
 import { exposedDocumentsTable } from '$lib/server/db/schema';
-import { and, eq } from 'drizzle-orm/expressions';
-import { fetchWiktionaryPageAndProcessIt, type ProcessedWiktPage, storeWordDataIndB, getWordDataFromDbOrNull } from '$lib/server';
+import { and, eq } from 'drizzle-orm';
 
 
 export const GET: RequestHandler = async ({ url }) => {

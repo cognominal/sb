@@ -37,9 +37,7 @@ import { drizzle, LibSQLDatabase } from 'drizzle-orm/libsql';
 import { createClient, type Client } from '@libsql/client';
 import * as schema from './db/schema';
 import { wordsTable } from './db/schema';
-import { and, eq } from 'drizzle-orm/expressions';
-import path from 'path';
-import fs from 'fs/promises';
+import { and, eq } from 'drizzle-orm';
 
 const client = createClient({ url: 'file:local.db' });
 type DB = LibSQLDatabase<typeof schema> & {

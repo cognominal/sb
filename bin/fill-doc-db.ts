@@ -1,9 +1,10 @@
 import { drizzle, LibSQLDatabase } from 'drizzle-orm/libsql';
 import { createClient, type Client } from '@libsql/client';
-import * as schema from '$lib/server';
-import { exposedDocumentsTable } from '$lib/server';
+import * as schema from '../src/lib/server';
+import { exposedDocumentsTable } from '../src/lib/server';
 import { readdirSync, readFileSync } from 'fs';
 import { join, basename } from 'path';
+
 
 
 const client = createClient({ url: 'file:local.db' });
@@ -13,6 +14,9 @@ type DB = LibSQLDatabase<typeof schema> & {
 
 let db: DB = drizzle(client, { schema });
 
+
+
+// Temporary: create tables using raw SQL if they do not exist (remove when migrations work)
 export async function initializeDatabase() {
     // Check if the `documents` table exists using raw SQL
     const tableExists = await db.$client.execute(
@@ -40,7 +44,6 @@ export async function initializeDatabase() {
             );
         `);
     }
-
 }
 
 await initializeDatabase();
@@ -63,4 +66,3 @@ for (const file of files) {
         content: docContent
     }).run();
 }
-

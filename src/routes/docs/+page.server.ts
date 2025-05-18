@@ -2,7 +2,7 @@ import type { PageServerLoad } from './$types';
 import { createClient } from '@libsql/client';
 import { drizzle } from 'drizzle-orm/libsql';
 import { exposedDocumentsTable } from '$lib/server/db/schema';
-import { eq } from 'drizzle-orm/expressions';
+
 
 const client = createClient({ url: 'file:local.db' });
 const db = drizzle(client);

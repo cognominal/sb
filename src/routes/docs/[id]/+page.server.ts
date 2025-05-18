@@ -4,7 +4,7 @@ import type { PageServerLoad, Actions } from './$types';
 import { db, getWordDataFromDbOrNull, storeWordDataIndB, fetchWiktionaryPageAndProcessIt, type ProcessedWiktPage } from '$lib/server';
 import { type WordData } from '$lib/server';
 import { exposedDocumentsTable } from '$lib/server/db/schema';
-import { eq } from 'drizzle-orm/expressions';
+import { eq } from 'drizzle-orm';
 import type { LangCode } from '$lib';
 
 
