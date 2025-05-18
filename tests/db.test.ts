@@ -31,7 +31,7 @@ describe('Database Tests', () => {
         await db.insert(schema.wordsTable).values({
             word: 'fakeword',
             lang: 'en',
-            tlang: 'en',
+            wlang: 'en',
             content: 'fakecontent'
         }).run();
 
@@ -41,7 +41,7 @@ describe('Database Tests', () => {
                 and(
                     eq(wordsTable.word, 'fakeword'),
                     eq(wordsTable.lang, 'en'),
-                    eq(wordsTable.tlang, 'en')
+                    eq(wordsTable.wlang, 'en')
                 )
             )
             .get();

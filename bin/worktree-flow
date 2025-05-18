@@ -1,0 +1,10 @@
+
+# /bin/sh
+worktree_name=flow-test
+worktree_path="$(pwd)$worktree_name.worktrees"
+
+echo $worktree_path
+# git worktree remove  --force $worktree_name || true
+
+echo git worktree add  $worktree_path
+# git worktree add $worktree_dir $worktree_name

@@ -2,8 +2,8 @@ import { drizzle, LibSQLDatabase } from 'drizzle-orm/libsql';
 import { createClient, type Client } from '@libsql/client';
 import * as schema from '$lib/server';
 import { exposedDocumentsTable } from '$lib/server';
-import { read, readFile } from 'fs';
-import { readFileSync } from 'fs';
+import { readdirSync, readFileSync } from 'fs';
+import { join, basename } from 'path';
 
 
 const client = createClient({ url: 'file:local.db' });
@@ -31,11 +31,23 @@ export async function initializeDatabase() {
 }
 
 await initializeDatabase();
-let DocuimentTableRowID = 0;
-const docContent = readFileSync('static/grok-processed-file.html', 'utf-8');
-await db.insert(exposedDocumentsTable).values({
-    id: DocuimentTableRowID++,
-    title: 'Grok',
-    content: docContent
-}).run();
+
+// Directory containing the HTML files
+const docsDir = 'static/multilingual_docs';
+const files = readdirSync(docsDir).filter(file => file.endsWith('.html'));
+
+let documentTableRowID = 0;
+
+// Insert each file into the database
+for (const file of files) {
+    const filePath = join(docsDir, file);
+    const docContent = readFileSync(filePath, 'utf-8');
+    const title = basename(file, '.html'); // Use the file basename without extension as the title
+
+    await db.insert(exposedDocumentsTable).values({
+        id: documentTableRowID++,
+        title,
+        content: docContent
+    }).run();
+}
 

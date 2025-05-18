@@ -24,9 +24,9 @@ async function initializeDatabase() {
             CREATE TABLE words (
                 word TEXT NOT NULL,
                 lang TEXT NOT NULL,
-                tlang TEXT NOT NULL,
+                wlang TEXT NOT NULL,
                 content TEXT,
-                PRIMARY KEY (word, lang, tlang)
+                PRIMARY KEY (word, lang, wlang)
             )
         `);
     }
@@ -40,7 +40,7 @@ async function main() {
     await db.insert(schema.wordsTable).values({
         word: 'fakeword',
         lang: 'en',
-        tlang: 'en',
+        wlang: 'en',
         content: 'fakecontent'
     }).run();
 
@@ -50,7 +50,7 @@ async function main() {
             and(
                 eq(wordsTable.word, 'fakeword'),
                 eq(wordsTable.lang, 'en'),
-                eq(wordsTable.tlang, 'en')
+                eq(wordsTable.wlang, 'en')
             )
         )
         .get();

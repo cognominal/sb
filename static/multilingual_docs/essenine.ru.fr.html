@@ -1,0 +1,217 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Interactive Words</title>
+<style>
+/*
+ * Main CSS for processed text
+ * ==========================
+ *
+ * This file contains styles for the processed HTML content.
+ * Run pnpm process-html after any change
+ */
+
+			/* Base styles */
+			body {
+			    font-family: Arial, sans-serif;
+			    line-height: 1.6;
+			    margin: 0;
+			    padding: 20px;
+			    color: #333;
+			    height: auto;
+			    min-height: 100%;
+			    overflow-y: auto;
+			}
+
+			h3 {
+			    font-size: 1.3rem;
+			}
+
+			/* Russian word styles */
+			span[data-lang='ru'] {
+			    color: #0066cc;
+			    cursor: pointer;
+			    position: relative;
+			}
+
+			span[data-lang='ru']:hover {
+			    background-color: #e6f0ff;
+			    border-bottom: 1px dotted #0066cc;
+			}
+
+			/* Common Russian word styles */
+			span[data-lang='ru'][data-common='true'] {
+			    color: #6699cc;
+			    /* Lighter color for common words */
+			    background-color: transparent;
+			}
+
+			span[data-lang='ru'][data-common='true']:hover {
+			    background-color: #f0f7ff;
+			    border-bottom: 1px dotted #6699cc;
+			}
+
+			/* English word styles */
+			span[data-lang='en-word'] {
+			    color: #006600;
+			    cursor: pointer;
+			}
+
+			span[data-lang='en-word']:hover {
+			    background-color: #e6ffe6;
+			    border-bottom: 1px dotted #006600;
+			}
+
+			/* Tooltip styles (for future use) */
+			.tooltip {
+			    position: absolute;
+			    bottom: 100%;
+			    left: 50%;
+			    transform: translateX(-50%);
+			    background-color: #333;
+			    color: white;
+			    padding: 5px 10px;
+			    border-radius: 4px;
+			    font-size: 14px;
+			    z-index: 100;
+			    white-space: nowrap;
+			    display: none;
+			}
+
+			span[data-lang='ru']:hover .tooltip {
+			    display: block;
+			}
+
+			/* Add a small arrow to the tooltip */
+			.tooltip::after {
+			    content: '';
+			    position: absolute;
+			    top: 100%;
+			    left: 50%;
+			    margin-left: -5px;
+			    border-width: 5px;
+			    border-style: solid;
+			    border-color: #333 transparent transparent transparent;
+			}
+
+</style>
+</head>
+<body>
+<ol class="marker:text-secondary">
+    <strong>Russian: </strong>
+    <span data-lang="ru" data-word="До">До</span>
+    <span data-lang="ru" data-word="свиданья,">свиданья,</span>
+    <span data-lang="ru" data-word="друг">друг</span>
+    <span data-lang="ru" data-word="мой,">мой,</span>
+    <span data-lang="ru" data-word="до">до</span>
+    <span data-lang="ru" data-word="свиданья.">свиданья.</span>
+    <strong>French: </strong>
+    <span data-lang="fr" data-word="Au">Au</span>
+    <span data-lang="fr" data-word="revoir,">revoir,</span>
+    <span data-lang="fr" data-word="mon">mon</span>
+    <span data-lang="fr" data-word="ami,">ami,</span>
+    <span data-lang="fr" data-word="au">au</span>
+    <span data-lang="fr" data-word="revoir,">revoir,</span>
+    <strong>Russian: </strong>
+    <span data-lang="ru" data-word="Милый">Милый</span>
+    <span data-lang="ru" data-word="мой,">мой,</span>
+    <span data-lang="ru" data-word="ты">ты</span>
+    <span data-lang="ru" data-word="у">у</span>
+    <span data-lang="ru" data-word="меня">меня</span>
+    <span data-lang="ru" data-word="в">в</span>
+    <span data-lang="ru" data-word="груди.">груди.</span>
+    <strong>French: </strong>
+    <span data-lang="fr" data-word="Mon">Mon</span>
+    <span data-lang="fr" data-word="tendre">tendre</span>
+    <span data-lang="fr" data-word="ami">ami</span>
+    <span data-lang="fr" data-word="que">que</span>
+    <span data-lang="fr" data-word="je">je</span>
+    <span data-lang="fr" data-word="garde">garde</span>
+    <span data-lang="fr" data-word="en">en</span>
+    <span data-lang="fr" data-word="mon">mon</span>
+    <span data-lang="fr" data-word="cœur.">cœur.</span>
+    <strong>Russian: </strong>
+    <span data-lang="ru" data-word="Предназначенное">Предназначенное</span>
+    <span data-lang="ru" data-word="расставанье">расставанье</span>
+    <strong>French: </strong>
+    <span data-lang="fr" data-word="Cette">Cette</span>
+    <span data-lang="fr" data-word="séparation">séparation</span>
+    <span data-lang="fr" data-word="prédestinée">prédestinée</span>
+    <strong>Russian: </strong>
+    <span data-lang="ru" data-word="Обещает">Обещает</span>
+    <span data-lang="ru" data-word="встречу">встречу</span>
+    <span data-lang="ru" data-word="впереди.">впереди.</span>
+    <strong>French: </strong>
+    <span data-lang="fr" data-word="Est">Est</span>
+    <span data-lang="fr" data-word="promesse">promesse</span>
+    <span data-lang="fr" data-word="d’un">d’un</span>
+    <span data-lang="fr" data-word="revoir">revoir</span>
+    <span data-lang="fr" data-word="prochain.">prochain.</span>
+    <strong>Russian: </strong>
+    <span data-lang="ru" data-word="До">До</span>
+    <span data-lang="ru" data-word="свиданья,">свиданья,</span>
+    <span data-lang="ru" data-word="друг">друг</span>
+    <span data-lang="ru" data-word="мой,">мой,</span>
+    <span data-lang="ru" data-word="без">без</span>
+    <span data-lang="ru" data-word="руки,">руки,</span>
+    <span data-lang="ru" data-word="без">без</span>
+    <span data-lang="ru" data-word="слова,">слова,</span>
+    <strong>French: </strong>
+    <span data-lang="fr" data-word="Au">Au</span>
+    <span data-lang="fr" data-word="revoir,">revoir,</span>
+    <span data-lang="fr" data-word="mon">mon</span>
+    <span data-lang="fr" data-word="ami,">ami,</span>
+    <span data-lang="fr" data-word="sans">sans</span>
+    <span data-lang="fr" data-word="geste,">geste,</span>
+    <span data-lang="fr" data-word="sans">sans</span>
+    <span data-lang="fr" data-word="mot,">mot,</span>
+    <strong>Russian: </strong>
+    <span data-lang="ru" data-word="Не">Не</span>
+    <span data-lang="ru" data-word="грусти">грусти</span>
+    <span data-lang="ru" data-word="и">и</span>
+    <span data-lang="ru" data-word="не">не</span>
+    <span data-lang="ru" data-word="печаль">печаль</span>
+    <span data-lang="ru" data-word="бровей,-">бровей,-</span>
+    <strong>French: </strong>
+    <span data-lang="fr" data-word="Ne">Ne</span>
+    <span data-lang="fr" data-word="sois">sois</span>
+    <span data-lang="fr" data-word="ni">ni</span>
+    <span data-lang="fr" data-word="triste,">triste,</span>
+    <span data-lang="fr" data-word="ni">ni</span>
+    <span data-lang="fr" data-word="chagrin.">chagrin.</span>
+    <strong>Russian: </strong>
+    <span data-lang="ru" data-word="В">В</span>
+    <span data-lang="ru" data-word="этой">этой</span>
+    <span data-lang="ru" data-word="жизни">жизни</span>
+    <span data-lang="ru" data-word="умирать">умирать</span>
+    <span data-lang="ru" data-word="не">не</span>
+    <span data-lang="ru" data-word="ново,">ново,</span>
+    <strong>French: </strong>
+    <span data-lang="fr" data-word="Mourir">Mourir</span>
+    <span data-lang="fr" data-word="en">en</span>
+    <span data-lang="fr" data-word="cette">cette</span>
+    <span data-lang="fr" data-word="vie">vie</span>
+    <span data-lang="fr" data-word="n'est">n'est</span>
+    <span data-lang="fr" data-word="pas">pas</span>
+    <span data-lang="fr" data-word="nouveau,">nouveau,</span>
+    <strong>Russian: </strong>
+    <span data-lang="ru" data-word="Но">Но</span>
+    <span data-lang="ru" data-word="и">и</span>
+    <span data-lang="ru" data-word="жить,">жить,</span>
+    <span data-lang="ru" data-word="конечно,">конечно,</span>
+    <span data-lang="ru" data-word="не">не</span>
+    <span data-lang="ru" data-word="новей.">новей.</span>
+    <strong>French: </strong>
+    <span data-lang="fr" data-word="Mais">Mais</span>
+    <span data-lang="fr" data-word="vivre,">vivre,</span>
+    <span data-lang="fr" data-word="assurément,">assurément,</span>
+    <span data-lang="fr" data-word="n'est">n'est</span>
+    <span data-lang="fr" data-word="pas">pas</span>
+    <span data-lang="fr" data-word="plus">plus</span>
+    <span data-lang="fr" data-word="neuf.">neuf.</span>
+
+    </li>    
+</ol>
+<body>

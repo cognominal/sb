@@ -1,43 +1,47 @@
 #! /usr/bin/env raku
-my $input-file = 'static/input/anki.ru.txt';
-my $output-file = 'static/grok-processed-file.html';
+
+my $input-file = 'static/input/essenine.txt';
+my $output-file = 'static/multilingual_docs/essenine.ru.fr.html';
 my $css-file = 'static/s.css';
 
 my $css = slurp $css-file;
 $_ = slurp $input-file;
 
-my @sentences = split /\n\n/, $_;
-say "Number of sentences: ", @sentences.elems;
+
+my ($ru, $fr) = .split(/\n\n/);
+my @ru = $ru.split(/\n/);
+my @fr = $fr.split(/\n/);
 
 my $output = '';
 
-for @sentences -> $sentence {
-    $output ~= 	qq:to<END>;
-        <li class="break-words">
-    END
+for 0..@ru.elems - 1 -> $i {
+    $output ~= process-sentence(@ru[$i], @fr[$i]);
+}
 
-    my ($ru, $en) = $sentence.split(/\n/);
+sub process-sentence($ru, $fr) {
+    my $output = '';
     my @ru = $ru.split(/\s+/);
-    my @en = $en.split(/\s+/);
+    my @fr = $fr.split(/\s+/);
+
     $output ~= qq:to<END>;
     	<strong>Russian: </strong>
     END
-    for @ru {
+
+    for @ru -> $word {
         $output ~= qq:to<END>;
-    		<span data-lang="ru" data-word="$_">$_\</span>
+            <span data-lang="ru" data-word="$word">$word\</span>
         END
     }
     $output ~= qq:to<END>;
-    	<strong>English: </strong>
+    	<strong>French: </strong>
     END
-    for @en  {
+
+    for @fr -> $word {
         $output ~= qq:to<END>;
-                <span data-lang="en" data-word="$_">$_\</span>
+            <span data-lang="fr" data-word="$word">$word\</span>
         END
     }
-    $output ~= qq:to<END>;
-        </li>
-    END
+    return $output;
 }
 
 $output = qq:to<END>;
@@ -57,4 +61,4 @@ $output
 <body>
 END
 
-spurt $output-file, $output;
+ spurt $output-file, $output;
