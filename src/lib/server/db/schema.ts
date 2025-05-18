@@ -1,4 +1,4 @@
-import { sqliteTable, text, integer, primaryKey } from 'drizzle-orm/sqlite-core';
+import { sqliteTable, text, integer, primaryKey, foreignKey } from 'drizzle-orm/sqlite-core';
 
 
 
@@ -16,4 +16,11 @@ export const exposedDocumentsTable = sqliteTable('documents', {
 	title: text('title').notNull(),
 	// lang: text('lang').notNull(), // language of the document
 	content: text('content').notNull(), // content of the processed document
-})
+});
+
+export const docPrezTable = sqliteTable('docprez', {
+	id: integer('id').primaryKey(),
+	documentId: integer('document_id').notNull().references(() => exposedDocumentsTable.id),
+	lang: text('lang').notNull(),
+	markdown: text('markdown').notNull(),
+});

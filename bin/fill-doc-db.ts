@@ -19,7 +19,6 @@ export async function initializeDatabase() {
         `SELECT name FROM sqlite_master WHERE type='table' AND name='documents';`
     );
     if (tableExists.rows.length === 0) {
-        // Corrected SQL syntax for creating the `documents` table
         await db.$client.execute(`
             CREATE TABLE documents (
                 id INTEGER PRIMARY KEY,
@@ -28,6 +27,20 @@ export async function initializeDatabase() {
             );
         `);
     }
+    const docPreztableExists = await db.$client.execute(
+        `SELECT name FROM sqlite_master WHERE type='table' AND name='docprez';`
+    );
+    if (docPreztableExists.rows.length === 0) {
+        await db.$client.execute(`
+            CREATE TABLE docprez (
+                id INTEGER PRIMARY KEY,
+                lang TEXT NOT NULL,
+                markdown TEXT NOT NULL,
+                FOREIGN KEY (id) REFERENCES documents(id)
+            );
+        `);
+    }
+
 }
 
 await initializeDatabase();
