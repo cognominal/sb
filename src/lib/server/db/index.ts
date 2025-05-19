@@ -2,7 +2,7 @@ import { drizzle } from 'drizzle-orm/libsql';
 import { createClient } from '@libsql/client';
 import * as schema from './schema';
 import { wordsTable } from './schema';
-import { and, eq } from 'drizzle-orm/expressions';
+import { and, eq } from 'drizzle-orm';
 import dotenv from 'dotenv';
 
 // Load environment variables from .env file
@@ -12,7 +12,7 @@ const client = createClient({ url: process.env.DB_FILE_NAME! });
 
 export const db = drizzle(client, { schema });
 
-async function initializeDatabase() {
+export async function initializeDatabase() {
     // Check if the `words` table exists using raw SQL
     const tableExists = await db.all<{ count: number }>(
         `SELECT COUNT(*) as count FROM sqlite_master WHERE type='table' AND name='words'`

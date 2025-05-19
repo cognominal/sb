@@ -3,7 +3,7 @@ import { drizzle } from 'drizzle-orm/libsql';
 import { createClient } from '@libsql/client';
 import * as schema from '../src/lib/server/db/schema';
 import { wordsTable } from '../src/lib/server/db/schema';
-import { and, eq } from 'drizzle-orm/expressions';
+import { and, eq } from 'drizzle-orm';
 import { initializeDatabase } from '../src/lib/server/db';
 
 // .env is git ignored so don't use it for tests.

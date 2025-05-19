@@ -16,7 +16,7 @@
 {#if data.docs.length === 0}
 	<p>No documents available</p>
 {/if}
-<h2>Documents available</h2>
+<h1>Documents available</h1>
 <ul>
 	{#each data.docs as doc}
 		<li><a href="/docs/{doc.id}">{doc.title}</a></li>
