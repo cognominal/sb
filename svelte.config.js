@@ -8,7 +8,12 @@ const config = {
 	alias: {
 		'$c': path.resolve('./src/lib/c'),
 		// '$c/*': path.resolve('./src/lib/c/*'),
-	}
+	},
+	vitePlugin: {
+		inspector: {
+			toggleButtonPos: 'top-right',
+		},
+	},
 };
 
 export default config;

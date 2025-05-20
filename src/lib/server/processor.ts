@@ -57,7 +57,7 @@ export function findRussianWords(text: string): string[] {
 export type ProcessedWiktPage = { status: string, processedWiktionaryPage?: string }
 
 /**
- * Fetches content from Wiktionary for a given Russian word
+ * Fetches content from `wlang` Wiktionary for a given `lang` word
  *
  * @param word - The Russian word to look up
  * @returns A promise that resolves to the processed HTML content from Wiktionary

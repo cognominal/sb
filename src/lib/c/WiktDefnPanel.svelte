@@ -5,19 +5,19 @@
 	import { Segment } from '@skeletonlabs/skeleton-svelte';
 	let iframeElement: HTMLIFrameElement | null = $state(null);
 
-	let { pageState = $bindable<PageState>()} = $props();
+	let { pageState = $bindable<PageState>() } = $props();
 
 	// State to hold processed HTML
 	let processedHtml: string | null = $state(null);
 
 	const langs = ['en', 'ru', 'fr']; // hardwired for now
-	console.log('pslang', pageState.wlang);
 
-	pageState.wlang = langs[0] as LangCode;
+	pageState.wlang = 'ru' as LangCode;
 
 	// Effect to extract and process words when wordDefinition changes
 	$effect(() => {
-		if (pageState.lang && pageState.selectedWord) {
+		console.log('Effect triggered');
+		if (pageState.wlang && pageState.selectedWord) {
 			getAndProcessDefinition(pageState);
 		}
 		if (pageState.wordDefinition !== null) {
