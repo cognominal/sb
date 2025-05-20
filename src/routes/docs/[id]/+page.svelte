@@ -45,7 +45,7 @@
 	// Create an instance of PageState
 	onMount(async () => {
 		// Fetch the document content when the component mounts
-		console.log('onMount');
+		// console.log('onMount');
 
 		let { err, str } = await fetchDocument(id);
 		pageState.documentContent = str;

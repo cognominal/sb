@@ -34,6 +34,7 @@
 		"@types/better-sqlite3": "^7.6.13",
 		"@types/jsdom": "^21.1.7",
 		"@types/node": "^22",
+		"daisyui": "^5.0.35",
 		"eslint": "^9.18.0",
 		"eslint-config-prettier": "^10.0.1",
 		"eslint-plugin-svelte": "^3.0.0",
