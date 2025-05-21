@@ -1,9 +1,3 @@
-<script lang="ts">
-	import { marked } from 'marked';
-
-	const txt = `
-# Statement of purpose
-
 This web app uses the [wiktionary](https://en.wikipedia.org/wiki/Wiktionary) as a tool for people of intermediate level to learn a language. This means learning the vocabulary about language. You are provided with a corpus of
 translated text. Currently, only the 1978 Soljenitsyn address and its english translation is available. But I am working on ways to expand the corpus and a UI to match two pages, the original and the translation, sentence by sentence. This is using CSS selectors to weed out uneeded material. 
 
@@ -37,12 +31,3 @@ we can track the occurrences, and present them to the learner
 Eventually a system of [spaced repetition learning](https://en.wikipedia.org/wiki/Spaced_repetition) will be implemented.
 
 Choose a [text](/docs) to learn from.
-`;
-	const html = marked.parse(txt);
-</script>
-
-<main class="m-5">
-	<article class="prose lg:prose-xl">
-		{@html html}
-	</article>
-</main>
