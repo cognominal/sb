@@ -8,10 +8,16 @@ using its free tier, but I will have to upload the db as well because free tiers
 ## What I had got.
 
 What is was doing was to allow to focus on a sentence. The rest was displayed  untranslated.
+
 ![sentences](assets/sentences.png)
-When clicking on a word, the wiktionary page was loaded and cached in a db.
+
+When clicking on a word, the wiktionary page was loaded, 
+only the russion section (now the target language section) kept, and cached in a db.
+
 ![wiktionary page](assets/wikt.png)
-the procesed witk page  was displayed in a side panel with only the translaction (sub)section expanded.
+the procesed witk page  was displayed in 
+a side panel with only the translaction (sub)section expanded.
+
 ![wiktionary page](assets/wiktmassaged.png)
 
 All of this will be kept but part of a more general app.
@@ -86,7 +92,7 @@ The translations sections are opened.
 
 ### Next
 
-For inflected word We will display, the non [inflected](https://en.wikipedia.org/wiki/Inflection) version as well. It is found in the span with class
+For inflected word We will display the non [inflected](https://en.wikipedia.org/wiki/Inflection) version as well. It is found in the span with class
 `form-of-definition-link`.
 
 ```html
